@@ -10,26 +10,6 @@
 #include <math.h>
 #include <assert.h>
 
-#if 0
-int match(int64_t n)
-{
-    uint64_t square = n * n;
-
-    int digits[] = { 0, 9, 8, 7, 6, 5, 4, 3, 2, 1 };
-    int index = 0;
-
-    do {
-        int digit = square % 10;
-        if (digit != digits[index++]) {
-            return false;
-        }
-        square /= 100;
-    } while (square > 0);
-
-    return true;
-}
-#endif
-
 int get_digit(int64_t x, int digit)
 {
     return x / (int)(pow(10, digit)) % 10;
