@@ -217,4 +217,13 @@ int comp_i32(const void *a, const void *b)
 	return 0;
 }
 
+// count_digits: counts the base 10 digits
+u32 count_digits(u64 n) {
+    u32 count = 1;
+    for (; n >= 10 || n <= -10; count++) {
+        n /= 10;
+    }
+    return count;
+}
+
 #endif // COMMON_H_
