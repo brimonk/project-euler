@@ -212,8 +212,8 @@ int comp_i32(const void *a, const void *b)
 {
 	i32 ia = *(i32 *)a;
 	i32 ib = *(i32 *)b;
-	if (ia > ib) return -1;
-	if (ia < ib) return 1;
+	if (ia < ib) return -1;
+	if (ia > ib) return 1;
 	return 0;
 }
 
