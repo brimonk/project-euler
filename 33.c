@@ -99,6 +99,7 @@ int main(int argc, char **argv)
     for (i32 i = 0; i < arrlen(numers); i++) {
         ansn *= numers[i];
     }
+
     for (i32 i = 0; i < arrlen(denoms); i++) {
         ansd *= denoms[i];
     }
