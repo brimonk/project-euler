@@ -226,6 +226,12 @@ int comp_u64(const void *a, const void *b)
 	return 0;
 }
 
+// comp_u64_rev: returns the inverse of comp_u64 (for sorting descending to ascending).
+int comp_u64_rev(const void *a, const void *b)
+{
+    return -comp_u64(a, b);
+}
+
 // count_digits: counts the base 10 digits
 u32 count_digits(u64 n) {
     u32 count = 1;
