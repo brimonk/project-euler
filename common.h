@@ -217,6 +217,15 @@ int comp_i32(const void *a, const void *b)
 	return 0;
 }
 
+int comp_i64(const void *a, const void *b)
+{
+	i64 ia = *(i64 *)a;
+	i64 ib = *(i64 *)b;
+	if (ia < ib) return -1;
+	if (ia > ib) return 1;
+	return 0;
+}
+
 int comp_u64(const void *a, const void *b)
 {
 	u64 ia = *(u64 *)a;
