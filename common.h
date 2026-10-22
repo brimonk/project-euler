@@ -250,4 +250,56 @@ u32 count_digits(u64 n) {
     return count;
 }
 
+i32 sum_i32s(i32 *p, size_t n)
+{
+    i32 result = 0;
+    for (i32 i = 0; i < n; i++) {
+        result += p[i];
+    }
+    return result;
+}
+
+#ifndef PRIMES_LIMIT
+#define PRIMES_LIMIT 1000000
+#endif // PRIMES_LIMIT
+
+static u8 *PRIMES = NULL;
+
+void compute_primes(void)
+{
+    PRIMES = calloc(PRIMES_LIMIT, sizeof(*PRIMES));
+    memset(PRIMES, 0xff, sizeof(*PRIMES) * PRIMES_LIMIT);
+
+    PRIMES[0] = false;
+    PRIMES[1] = false;
+
+    for (u64 i = 2; i < PRIMES_LIMIT; i++) {
+        for (u64 j = i * 2; j < PRIMES_LIMIT; j += i) {
+            PRIMES[j] = false;
+        }
+    }
+}
+
+bool is_prime(u64 prime)
+{
+    if (PRIMES == NULL) {
+        compute_primes();
+    }
+
+    assert(prime < PRIMES_LIMIT); // if hit, user needs to #define PRIMES_LIMIT
+
+    return PRIMES[prime];
+}
+
+i64 get_next_prime(u64 current_prime)
+{
+    i64 i = current_prime + 1;
+
+    while (i < PRIMES_LIMIT && !PRIMES[i]) {
+        i++;
+    }
+
+    return i == PRIMES_LIMIT ? -1 : i;
+}
+
 #endif // COMMON_H_

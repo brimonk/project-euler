@@ -12,26 +12,8 @@
 // Find the first four consecutive integers to have four distinct prime factors each. What is the
 // first of these numbers?
 
+#define PRIMES_LIMIT 1000000
 #include "common.h"
-
-#define LIMIT 1000000
-
-u8 *primes = NULL;
-
-void compute_primes(void)
-{
-    primes = calloc(LIMIT, sizeof(*primes));
-    memset(primes, 0xff, sizeof(*primes) * LIMIT);
-
-    primes[0] = false;
-    primes[1] = false;
-
-    for (int i = 2; i < LIMIT; i++) {
-        for (int j = i * 2; j < LIMIT; j += i) {
-            primes[j] = false;
-        }
-    }
-}
 
 // returns the prime factorization, with each prime factor presented independently
 i32 *prime_factors(i32 n)
@@ -42,7 +24,7 @@ i32 *prime_factors(i32 n)
         i32 lim = n / 2;
         bool found = false;
         for (i32 i = 2; i <= lim; i++) {
-            if (primes[i] && n % i == 0) {
+            if (PRIMES[i] && n % i == 0) {
                 arrput(factors, i);
                 n /= i;
                 found = true;

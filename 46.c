@@ -8,32 +8,14 @@
 //   27 = 19 + 2 * 2 ^ 2
 //   33 = 31 + 2 * 1 ^ 2
 
+#define PRIMES_LIMIT 1000000
 #include "common.h"
-
-#define LIMIT 1000000
-
-u8 *primes = NULL;
-
-void compute_primes(void)
-{
-    primes = calloc(LIMIT, sizeof(*primes));
-    memset(primes, 0xff, sizeof(*primes) * LIMIT);
-
-    primes[0] = false;
-    primes[1] = false;
-
-    for (int i = 2; i < LIMIT; i++) {
-        for (int j = i * 2; j < LIMIT; j += i) {
-            primes[j] = false;
-        }
-    }
-}
 
 i32 *get_lesser_primes(i32 n)
 {
     i32 *list = NULL;
     for (i32 i = 1; i < n; i++) {
-        if (primes[i]) {
+        if (PRIMES[i]) {
             arrput(list, i);
         }
     }
@@ -68,10 +50,10 @@ int main(int argc, char **argv)
 
     compute_primes();
 
-    const i32 limit = LIMIT;
+    const i32 limit = PRIMES_LIMIT;
 
     for (i32 i = 3; i < limit; i++) {
-        if (i % 2 == 1 && !primes[i]) {
+        if (i % 2 == 1 && !PRIMES[i]) {
             if (!follows_conjecture(i)) {
                 answer = i;
                 break;

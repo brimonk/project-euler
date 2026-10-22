@@ -9,28 +9,8 @@
 // What is the first value which can be written as the sum of primes in over five thousand different
 // ways.
 
+#define PRIMES_LIMIT 100000
 #include "common.h"
-
-#define LIMIT 100000
-
-u8 *primes = NULL;
-
-void compute_primes(void)
-{
-    assert(sizeof(size_t) == 8);
-
-    primes = calloc(LIMIT, sizeof(*primes));
-    memset(primes, 0xff, sizeof(*primes) * LIMIT);
-
-    primes[0] = false;
-    primes[1] = false;
-
-    for (int i = 2; i < LIMIT; i++) {
-        for (int j = i * 2; j < LIMIT; j += i) {
-            primes[j] = false;
-        }
-    }
-}
 
 u64 count_sum_of_primes_recurse(u64 target, u64 curr, u64 *p, i32 idx)
 {
@@ -56,7 +36,7 @@ u64 count_sum_of_primes(u64 n)
     autofreearr u64 *local_primes = NULL;
 
     for (u64 i = 2; i < n; i++) {
-        if (primes[i]) {
+        if (PRIMES[i]) {
             arrput(local_primes, (u64)i);
         }
     }
@@ -75,9 +55,9 @@ int main(int argc, char **argv)
 
     u64 answer = ULONG_MAX;
 
-    // printf("primes to compute 10: %lu\n", count_sum_of_primes(10));
+    // printf("PRIMES to compute 10: %lu\n", count_sum_of_primes(10));
 
-    for (u64 i = 1; i < LIMIT; i++) {
+    for (u64 i = 1; i < PRIMES_LIMIT; i++) {
         if (count_sum_of_primes(i) > 5000) {
             answer = i;
             break;

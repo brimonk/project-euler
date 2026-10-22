@@ -1,30 +1,12 @@
+#define PRIMES_LIMIT 1000000000
 #include "common.h"
-
-u8 *sieve(size_t count)
-{
-    count = count + count / 2;
-    u8 *primes = calloc(count, sizeof(*primes));
-    memset(primes, 0xff, count * sizeof(*primes));
-
-    for (size_t i = 2; i < count; i++) {
-        for (size_t j = i + i; primes[i] && j < count; j += i) {
-            primes[j] = 0;
-        }
-    }
-
-    return primes;
-}
-
-u8 *PRIMES = NULL;
-
-#define LIMIT 100000000
-// #define LIMIT 100
 
 int main(int argc, char **argv)
 {
-    PRIMES = sieve(LIMIT);
+    compute_primes();
+
     u64 sum = 1;
-    for (int i = 2; i <= LIMIT; i += 4) {
+    for (int i = 2; i <= PRIMES_LIMIT; i += 4) {
         if (PRIMES[i + 1] && PRIMES[2 + i / 2]) {
             int valid = true;
             for (int divisor = 3; divisor * divisor <= i; divisor++) {
@@ -43,6 +25,6 @@ int main(int argc, char **argv)
             }
         }
     }
+
     printf("ANSWER: %lu\n", sum);
-    free(PRIMES);
 }
